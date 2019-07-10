@@ -8,9 +8,9 @@ default: &default
 
 development:
   <<: *default
-  database: expenses_menager_db
+  database: expenses_manager_db
 
 
 test:
   <<: *default
-  database: expenses_menager_test
+  database: expenses_manager_test
