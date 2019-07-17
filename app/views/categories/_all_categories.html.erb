@@ -1,0 +1,13 @@
+<% @categories.each do |category| %>
+  <div style="background-color: bisque; margin: 10px 0; padding: 10px">
+    <%= render 'category', category: category %>
+    <ul class="subcategories">
+      <% category.subcategories.each do |subcategory| %>
+        <li>
+          <%= render 'category', category: subcategory %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+

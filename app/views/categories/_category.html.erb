@@ -1,0 +1,20 @@
+<div class="category-div" data-category-id='<%= category.id %>'>
+  <div class="category-name"><%= category.name %></div>
+  <button class="edit-category-btn">Edit</button>
+  <div class="edit-category-div" style="display: none">
+    <input value="<%= category.name %>">
+    <button class="save-category-btn">Save</button>
+    <button class="discard-edit-category-btn">Discard changes</button>
+  </div>
+  <button class="delete-category-btn">Delete</button>
+  <% unless category.parent_category.present? %>
+    <button class="new-subcategory-btn">New subcategory</button>
+    <ul class="new-subcategory-div" style="display: none">
+      <li>
+        <input>
+        <button class="add-subcategory-btn">Add</button>
+        <button class="discard-subcategory-btn">Discard changes</button>
+      </li>
+    </ul>
+  <% end %>
+</div>
