@@ -1,5 +1,8 @@
+<%= link_to 'Back', expenses_path %>
 <h1>New Expense</h1>
 
 <%= render 'form', expense: @expense %>
 
-<%= link_to 'Back', expenses_path %>
+<button id="create-expenses">Send expenses</button>
+
+<div id="expenses"></div>

@@ -1,5 +1,8 @@
+require 'json'
+
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :change_amounts_comma_to_dot, only: [:create, :update]
   before_action :authenticate_user!
 
   # GET /expenses
@@ -22,14 +25,17 @@ class ExpensesController < ApplicationController
 
   # POST /expenses
   def create
-    @expense = Expense.new(expense_params)
-
-    if @expense.save
-      redirect_to @expense, notice: 'Expense was successfully created.'
-    else
-      render :new
+    puts "------------------ #{expense_params}"
+    if expense_params.empty?
+      redirect_to new_expense_path, alert: 'Error'
+      return
+    end
+    Expense.transaction do
+      expense_params.each {|expense| Expense.create(expense)}
+    redirect_to new_expense_path, notice: 'Expenses were created'
     end
   end
+
 
   # PATCH/PUT /expenses/1
   def update
@@ -47,13 +53,18 @@ class ExpensesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_expense
-      @expense = Expense.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def expense_params
-      params.require(:expense).permit(:date, :amount, :category_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_expense
+    @expense = Expense.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def expense_params
+    JSON.parse params.require(:expenses)
+  end
+
+  def change_amounts_comma_to_dot
+    JSON.parse(params[:expenses]).each {|expense| expense["amount"].gsub!(',', '.')}
+  end
 end

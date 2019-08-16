@@ -12,6 +12,11 @@
 //
 //= require jquery3
 //= require rails-ujs
+//= require selectize
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+$(document).on('turbolinks:load', function () {
+    $('.selectize').selectize({});
+});

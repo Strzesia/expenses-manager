@@ -1,3 +1,4 @@
-// Place all the styles related to the Expenses controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.input-error {
+  border: 2px solid #ff8080 !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff8f8), to(#fde2e2)) !important;
+}

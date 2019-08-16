@@ -7,8 +7,27 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admin = User.create(
-                username: 'admin',
-                email: 'serdelek.xd@gmail.com',
-                password: 'admin123',
-                password_confirmation: 'admin123'
+    id: 1,
+    username: 'admin',
+    email: 'serdelek.xd@gmail.com',
+    password: 'admin123',
+    password_confirmation: 'admin123'
 )
+
+categories = %w(food car alcohol)
+categories.each_with_index do |category, index|
+  Category.create(
+      id: index + 1,
+      name: category,
+      user_id: admin.id
+  )
+  expenses = %w(10 15 20)
+  expenses.each do |expense|
+    Expense.create(
+        date: Date.today,
+        amount: expense,
+        category_id: index + 1
+    )
+  end
+
+end
